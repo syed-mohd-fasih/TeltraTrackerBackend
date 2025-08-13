@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Device {
+  id         Int          @id @default(autoincrement())
+  name       String
+  simCard    String       @db.VarChar(8)
+  dateAdded  DateTime     @default(now())
+  status     Boolean      @default(true)
+  deviceType DeviceType
+  history    SimHistory[]
+}
+
+model SimHistory {
+  id        Int      @id @default(autoincrement())
+  device    Device   @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  deviceId  Int
+  oldSim    String   @db.VarChar(8)
+  newSim    String   @db.VarChar(8)
+  changedAt DateTime @default(now())
+}
+
+enum DeviceType {
+  Camera
+  Sensor
+  Tracker
+  Meter
+  Terminal
+  Other
+}
