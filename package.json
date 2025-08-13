@@ -4,7 +4,11 @@
 	"description": "Backend source code for TeltraTrackerApp",
 	"main": "index.js",
 	"scripts": {
-		"start": "npx nodemon index.js"
+		"dev": "nodemon src/index.js",
+		"start": "node src/index.js",
+		"prisma:generate": "prisma generate",
+		"prisma:migrate": "prisma migrate dev",
+		"prisma:studio": "prisma studio"
 	},
 	"author": "Syed Fasih",
 	"license": "ISC",
