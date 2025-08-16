@@ -1,5 +1,5 @@
 import express from "express";
-import { getSimHistory } from "../controllers/simController";
+import { getSimHistory } from "../controllers/simController.js";
 
 const router = express.Router();
 
