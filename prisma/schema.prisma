@@ -7,14 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model DeviceType {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique
+  devices Device[]
+}
+
 model Device {
-  id         Int          @id @default(autoincrement())
-  name       String
-  simCard    String       @db.VarChar(8)
-  dateAdded  DateTime     @default(now())
-  status     Boolean      @default(true)
-  deviceType DeviceType
-  history    SimHistory[]
+  id           Int          @id @default(autoincrement())
+  name         String
+  simCard      String?      @db.VarChar(8)
+  dateAdded    DateTime     @default(now())
+  status       Boolean      @default(true)
+  deviceTypeId Int
+  deviceType   DeviceType   @relation(fields: [deviceTypeId], references: [id])
+  history      SimHistory[]
 }
 
 model SimHistory {
@@ -24,13 +31,4 @@ model SimHistory {
   oldSim    String   @db.VarChar(8)
   newSim    String   @db.VarChar(8)
   changedAt DateTime @default(now())
-}
-
-enum DeviceType {
-  Camera
-  Sensor
-  Tracker
-  Meter
-  Terminal
-  Other
 }
