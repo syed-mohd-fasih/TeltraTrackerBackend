@@ -11,12 +11,25 @@ import {
 
 const router = express.Router();
 
-router.get("/", getAllDevices);
-router.post("/", createDevice);
-router.put("/:id", updateDevice);
-router.put("/:id", updateDeviceStatus);
-router.put("/", updateDeviceSim);
-router.delete("/:id", deleteDevice);
-router.get("/:id", getDeviceById);
+// Gets all devices (NO HISTORY)
+router.get("/getAll", getAllDevices);
+
+// Gets Device by ID (with HISTORY)
+router.get("/getById/:id", getDeviceById);
+
+// Creates a device; Default (No SIM, status: true)
+router.post("/create/", createDevice);
+
+// Updates Name and Device Type ONLY
+router.put("/update/:id", updateDevice);
+
+// Updates Device Status ONLY
+router.put("/updateStatus/:id", updateDeviceStatus);
+
+// Updates Device Sim ONLY
+router.put("/updateSim/:id", updateDeviceSim);
+
+// Deletes Device
+router.delete("/delete/:id", deleteDevice);
 
 export default router;
