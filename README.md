@@ -12,14 +12,53 @@ http://localhost:3000
 
 ## Endpoints
 
-### 1. Devices API
+### 1. Hello API
+
+This endpoint returns all devices (with history and associated device types) along with all device types.
+
+-   **Get all devices and device types**
+    -   **URL:** `/api`
+    -   **Method:** GET
+    -   **Response Structure:**
+        ```json
+        {
+          "devices": [
+            {
+              "id": ...,
+              "name": ...,
+              "simCard": ...,
+              "deviceType": { "id": ..., "name": ... } || null,
+              "dateAdded": ...,
+              "status": ...,
+              "history": [
+                {
+                  "oldSim": ...,
+                  "newSim": ...,
+                  "changedAt": ...
+                }
+              ]
+            }
+          ],
+          "deviceTypes": [
+            {
+              "id": ...,
+              "name": ...
+            }
+          ]
+        }
+        ```
+    -   **Implemented in:** [`routes/hello.js`](./routes/hello.js)
+
+### 2. Devices API
 
 Endpoints for managing devices.
 
 -   **Get all devices (without SIM history)**
+
     -   **URL:** `/api/devices/getAll`
     -   **Method:** GET
     -   **Response:** List of all devices.
+
 -   **Get device by ID (with SIM history)**
 
     -   **URL:** `/api/devices/getById/:id`
@@ -30,7 +69,7 @@ Endpoints for managing devices.
 
 -   **Create a device**
 
-    -   **URL:** `/api/devices/create/`
+    -   **URL:** `/api/devices/create`
     -   **Method:** POST
     -   **Request Body:**
         -   `name` (string) - The name of the device.
@@ -75,7 +114,7 @@ Endpoints for managing devices.
         -   `id` - The unique ID of the device.
     -   **Response:** A success message upon deletion.
 
-### 2. SIM API
+### 3. SIM API
 
 Endpoint for retrieving SIM history.
 
@@ -89,7 +128,7 @@ Endpoint for retrieving SIM history.
         -   `oldSim` and `newSim` values.
         -   `changedAt` timestamp (ordered in ascending order).
 
-### 3. Device Types API
+### 4. Device Types API
 
 Endpoints for managing device types.
 
@@ -142,7 +181,7 @@ To run the API locally:
     npm install
     ```
 
-2. Run migrations and generate Prisma client:
+2. Run migrations and generate the Prisma client:
 
     ```sh
     npm run prisma:migrate
@@ -155,12 +194,13 @@ To run the API locally:
     npm run dev
     ```
 
-The server will be running on port 3000 (or port specified in the `PORT` environment variable).
+The server will be running on port 3000 (or the port specified in the `PORT` environment variable).
 
 ---
 
-This documentation provides an overview of all the API endpoints offered by the backend. For further information, refer to the corresponding controller files:
+This documentation provides an overview of all the API endpoints offered by the backend. For further details, refer to the corresponding controller and route files:
 
--   [`devicesController.js`](d:\Codes\TeltraTrackerBackend\controllers\devicesController.js)
--   [`simController.js`](d:\Codes\TeltraTrackerBackend\controllers\simController.js)
--   [`deviceTypesController.js`](d:\Codes\TeltraTrackerBackend\controllers\deviceTypesController.js)
+-   [devicesController.js](./controllers/devicesController.js)
+-   [simController.js](./controllers/simController.js)
+-   [deviceTypesController.js](./controllers/deviceTypesController.js)
+-   [hello.js](./routes/hello.js)
