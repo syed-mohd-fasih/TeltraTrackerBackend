@@ -1,5 +1,8 @@
 import prisma from "../db.js";
 
+/**
+ *  Gets all devices (NO HISTORY)
+ */
 export const getAllDevices = async (req, res) => {
 	try {
 		const devices = await prisma.device.findMany();
@@ -9,6 +12,9 @@ export const getAllDevices = async (req, res) => {
 	}
 };
 
+/**
+ * Gets Device by ID (with HISTORY)
+ */
 export const getDeviceById = async (req, res) => {
 	try {
 		const device = await prisma.device.findUnique({
@@ -22,6 +28,9 @@ export const getDeviceById = async (req, res) => {
 	}
 };
 
+/**
+ * Creates a device; Default (No SIM, status: true)
+ */
 export const createDevice = async (req, res) => {
 	try {
 		const { name, deviceTypeId } = req.body;
@@ -34,6 +43,9 @@ export const createDevice = async (req, res) => {
 	}
 };
 
+/**
+ * Updates Name and Device Type ONLY
+ */
 export const updateDevice = async (req, res) => {
 	try {
 		const { name, deviceTypeId } = req.body;
@@ -47,6 +59,9 @@ export const updateDevice = async (req, res) => {
 	}
 };
 
+/**
+ * Updates Device Status ONLY
+ */
 export const updateDeviceStatus = async (req, res) => {
 	try {
 		const { status } = req.body;
@@ -60,6 +75,9 @@ export const updateDeviceStatus = async (req, res) => {
 	}
 };
 
+/**
+ * Updates Device Sim ONLY
+ */
 export const updateDeviceSim = async (req, res) => {
 	try {
 		const { newSim } = req.body;
@@ -103,6 +121,9 @@ export const updateDeviceSim = async (req, res) => {
 	}
 };
 
+/**
+ * Deletes Device
+ */
 export const deleteDevice = async (req, res) => {
 	try {
 		await prisma.device.delete({

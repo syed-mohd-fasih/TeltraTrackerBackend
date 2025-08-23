@@ -18,7 +18,7 @@ router.get("/getAll", getAllDevices);
 router.get("/getById/:id", getDeviceById);
 
 // Creates a device; Default (No SIM, status: true)
-router.post("/create/", createDevice);
+router.post("/create", createDevice);
 
 // Updates Name and Device Type ONLY
 router.put("/update/:id", updateDevice);
